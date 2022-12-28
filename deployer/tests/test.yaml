@@ -1,6 +1,7 @@
 global:
   image: example.com
   tag: latest
+  key: new
 app:
   foo: bar
   nest:
