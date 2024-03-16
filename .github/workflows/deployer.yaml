@@ -1,4 +1,4 @@
-sname: Build and publish Deployer
+name: Build and publish Deployer
 
 on:
   workflow_dispatch:
