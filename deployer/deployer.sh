@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 # DEPLOY_KEY=/app/.ssh/ssh.private
-WORKDIR=/app/clone
+WORKDIR="${WORKDIR:-/app/clone}"
 
 _help() {
   echo """
@@ -13,8 +13,8 @@ _help() {
   -v -- (value) - new values to be set for -k(ey)
 
   Envs:
-  DEPLOY_KEY - plain ssh key to be used to commit
-
+  DEPLOY_KEY -- plain ssh key to be used to commit
+  WORKDIR -- optional, workdir to clone and commit changes
 """
 }
 
@@ -43,7 +43,8 @@ done
 
 git_config() {
   eval $(ssh-agent -s)
-  echo "${DEPLOY_KEY}" | tr -d '\r' | ssh-add - # TODO
+  # echo "${DEPLOY_KEY}" | tr -d '\r' | ssh-add - # TODO
+  ssh-add -i "${DEPLOY_KEY}"
   mkdir -p ~/.ssh
   chmod 700 ~/.ssh
   ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
