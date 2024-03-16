@@ -44,7 +44,7 @@ done
 git_config() {
   eval $(ssh-agent -s)
   # echo "${DEPLOY_KEY}" | tr -d '\r' | ssh-add - # TODO
-  ssh-add -i "${DEPLOY_KEY}"
+  ssh-add "${DEPLOY_KEY}"
   mkdir -p ~/.ssh
   chmod 700 ~/.ssh
   ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
