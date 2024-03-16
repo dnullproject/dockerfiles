@@ -32,8 +32,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./deployer/
+          file: ./deployer/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           # use commit hash
