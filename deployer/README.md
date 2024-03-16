@@ -6,8 +6,11 @@ Using `DEPLOY_KEY` will pull target repo
 ## Usage
 
 ### Args
+
 `-f` -- file to be changed and commited
+
 `-k` -- (key) - yaml path in -f(ile) to be changed
+
 `-v` -- (value) - new values to be set for -k(ey)
 
 ### Environment variables
