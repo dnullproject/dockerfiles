@@ -37,6 +37,5 @@ jobs:
           file: ./deployer/Dockerfile
           push: true
           platforms: linux/amd64
-          # use commit hash
-          tags: ${{ github.sha }}
+          tags: latest
           labels: ${{ steps.meta.outputs.labels }}
