@@ -63,7 +63,7 @@ file_update() {
   cd ${WORKDIR}
   REPLACE=''"${YKEY}=\"${YVALUE}\""''
   ls -la
-  yq --inplace ${REPLACE} "${FILE}"
+  yq --inplace "${REPLACE}" "${FILE}"
 }
 
 git_commit() {
