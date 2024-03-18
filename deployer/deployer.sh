@@ -44,7 +44,12 @@ done
 git_config() {
   eval $(ssh-agent -s)
   # echo "${DEPLOY_KEY}" | tr -d '\r' | ssh-add - # TODO
-  ssh-add "${DEPLOY_KEY}"
+  
+  # In kubernetes, key will be mounted as RO with 0444
+  # Workaround - Copy ssh key to /tmp
+  cp "${DEPLOY_KEY}" /tmp/key
+  chmod 400 /tmp/key
+  ssh-add /tmp/key
   mkdir -p ~/.ssh
   chmod 700 ~/.ssh
   ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
