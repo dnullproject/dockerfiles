@@ -44,7 +44,7 @@ done
 git_config() {
   eval $(ssh-agent -s)
   # echo "${DEPLOY_KEY}" | tr -d '\r' | ssh-add - # TODO
-  
+
   # In kubernetes, key will be mounted as RO with 0444
   # Workaround - Copy ssh key to /tmp
   cp "${DEPLOY_KEY}" /tmp/key
@@ -54,8 +54,8 @@ git_config() {
   chmod 700 ~/.ssh
   ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
   ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
-  git config --global user.name "deployer bot"
-  git config --global user.email "deployer@example.com" # TODO
+  git config --global user.name "dNull bot"
+  git config --global user.email "dnull.bot@gmail.com"
 }
 
 git_pull() {
@@ -66,7 +66,7 @@ git_pull() {
 
 file_update() {
   cd ${WORKDIR}
-  REPLACE=''"${YKEY}=\"${YVALUE}\""''
+  REPLACE=''."${YKEY}=\"${YVALUE}\""''
   ls -la
   yq --inplace "${REPLACE}" "${FILE}"
 }
@@ -78,6 +78,11 @@ git_commit() {
   git push origin "${REVISION}"
 }
 
+prepare() {
+  rm -rf ${WORKDIR} || echo "WORKDIR already removed"
+}
+
+prepare
 git_config
 git_pull
 file_update
