@@ -79,7 +79,7 @@ git_commit() {
 }
 
 prepare() {
-  rm -rf ${WORKDIR} || echo "WORKDIR already removed"
+  rm -rf ${WORKDIR}/* || echo "No files to delete"
 }
 
 prepare
