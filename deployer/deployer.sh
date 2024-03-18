@@ -54,8 +54,8 @@ git_config() {
   chmod 700 ~/.ssh
   ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
   ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
-  git config --global user.name "dNull bot"
-  git config --global user.email "dnull.bot@gmail.com"
+  git config --global user.name "${GIT_USERNAME:-'bot'}"
+  git config --global user.email "${GIT_EMAIL:-'bot@example.com'}"
 }
 
 git_pull() {
