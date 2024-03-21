@@ -48,6 +48,8 @@ git_config() {
   # In kubernetes, key will be mounted as RO with 0444
   # Workaround - Copy ssh key to /tmp
   cp "${DEPLOY_KEY}" /tmp/key
+  # Dirty hack to fix common issue with new lines in ssh-keys
+  echo "" >> /tmp/key
   chmod 400 /tmp/key
   ssh-add /tmp/key
   mkdir -p ~/.ssh
