@@ -5,6 +5,16 @@ Using `DEPLOY_KEY` will pull target repo
 
 ## Usage
 
+### Run docker
+
+```sh
+docker pull 2xnone/deployer
+```
+
+Check releases to pin selected tag: 
+
+ex: `2xnone/deployer:1.0.0`
+
 ### Args
 
 `-f` -- file to be changed and commited
