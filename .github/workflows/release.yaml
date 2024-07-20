@@ -37,13 +37,9 @@ jobs:
           COMPONENT=$(echo "${{ github.event.pull_request.title }}" | grep -oP '^\w+' || echo "test")
           SEMANTIC="pr-${{ github.event.pull_request.number }}"
         fi
-        echo ::set-output name=COMPONENT::$COMPONENT
-        echo ::set-output name=SEMANTIC::$SEMANTIC
-        echo "WORKFLOW_NAME=$COMPONENT Docker Image CI" >> $GITHUB_ENV
-
-    - name: Update workflow name
-      run: |
-        echo "name: ${{ env.WORKFLOW_NAME }}" >> $GITHUB_WORKFLOW
+        echo "::set-output name=COMPONENT::$COMPONENT"
+        echo "::set-output name=SEMANTIC::$SEMANTIC"
+        echo "::set-output name=WORKFLOW_NAME::$COMPONENT Docker Image CI"
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
@@ -55,9 +51,9 @@ jobs:
       id: dockerfile_check
       run: |
         if [ -f "${{ steps.extract_info.outputs.COMPONENT }}/Dockerfile" ]; then
-          echo ::set-output name=EXISTS::true
+          echo "::set-output name=EXISTS::true"
         else
-          echo ::set-output name=EXISTS::false
+          echo "::set-output name=EXISTS::false"
           echo "No Dockerfile found for component ${{ steps.extract_info.outputs.COMPONENT }}"
           exit 1
         fi
@@ -72,3 +68,7 @@ jobs:
         tags: |
           ${{ secrets.DOCKER_USERNAME }}/${{ steps.extract_info.outputs.COMPONENT }}:${{ steps.extract_info.outputs.SEMANTIC }}
           ${{ secrets.DOCKER_USERNAME }}/${{ steps.extract_info.outputs.COMPONENT }}:latest
+
+    - name: Echo Workflow Name
+      run: |
+        echo "Current workflow name: ${{ steps.extract_info.outputs.WORKFLOW_NAME }}"
